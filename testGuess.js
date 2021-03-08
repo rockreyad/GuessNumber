@@ -2,6 +2,7 @@
 
 //Generating Secert Number
 let secertNumber = Math.trunc(Math.random() * 20) + 1;
+const hintClose = Math.trunc(Math.random() * 3) + 1;
 let score = 10;
 let highscore = 0;
 
@@ -18,13 +19,11 @@ const displayNumber = function (number) {
 };
 
 const closeMessage = function (guessNumber) {
-  let soClose = guessNumber + Math.trunc(Math.random() * 3) + 1;
-  let lowerClose = guessNumber - Math.trunc(Math.random() * 3) + 1;
-  if (soClose == secertNumber || lowerClose == secertNumber) {
-    displayMessage('😒 So Close');
-  } else {
-    displayMessage('😂 Try again');
-  }
+  let soClose =
+    guessNumber + hintClose == secertNumber ||
+    guessNumber - hintClose == secertNumber
+      ? displayMessage('😒 So Close')
+      : displayMessage('😂 Try again');
 };
 //For Debug Show secretNumber
 //displayNumber(secertNumber);
@@ -49,20 +48,6 @@ document.querySelector('.check').addEventListener('click', function () {
     if (guessNumber >= 1 && guessNumber <= 20) {
       if (guessNumber != secertNumber) {
         closeMessage(guessNumber);
-        // let soClose =
-        //   guessNumber + 3 == secertNumber ||
-        //   guessNumber - 3 == secertNumber ||
-        //   guessNumber + 2 == secertNumber ||
-        //   guessNumber - 2 == secertNumber ||
-        //   guessNumber + 1 == secertNumber ||
-        //   guessNumber - 1 == secertNumber ||
-        //   guessNumber + 4 == secertNumber ||
-        //   guessNumber - 4 == secertNumber
-        //     ? 'So Close'
-        //     : 'Try again';
-
-        // displayMessage(soClose);
-        // displayMessage(guessNumber < secertNumber ? 'Too Low' : 'Too High');
         score--;
         displayScore(score);
       }
